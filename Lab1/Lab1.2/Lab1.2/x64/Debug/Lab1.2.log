@@ -1,0 +1,3 @@
+﻿  Rekursion.c
+C:\Users\macke\Documents\DVA244\Lab1\Lab1.2\Lab1.2\Rekursion.c(9,2): warning C4013: 'sum' undefined; assuming extern returning int
+  Lab1.2.vcxproj -> C:\Users\macke\Documents\DVA244\Lab1\Lab1.2\x64\Debug\Lab1.2.exe

@@ -1,0 +1,5 @@
+﻿  list.c
+C:\Users\macke\Documents\DVA244\Lab2\list.c(11,45): warning C4047: '=': 'List' differs in levels of indirection from 'List *'
+C:\Users\macke\Documents\DVA244\Lab2\list.c(47,49): warning C4047: '=': 'List' differs in levels of indirection from 'List *'
+C:\Users\macke\Documents\DVA244\Lab2\list.c(59,55): warning C4047: '=': 'node *' differs in levels of indirection from 'List *'
+  Lab2.vcxproj -> C:\Users\macke\Documents\DVA244\Lab2\Lab2\x64\Debug\Lab2.exe

@@ -1,0 +1,5 @@
+﻿  dstring.c
+C:\Users\macke\Documents\DVA244\Lab1\dstring.c(33,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  dstring_test.c
+  Generating Code...
+  Lab1.vcxproj -> C:\Users\macke\Documents\DVA244\Lab1\Lab1\x64\Debug\Lab1.exe
