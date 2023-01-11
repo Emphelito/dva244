@@ -76,7 +76,6 @@ static void singleDelete(BSTree* node, BSTree* prev, BSTree* tree) { //Dubbla gr
 }
 static void leafDelete(BSTree* node, BSTree* prev) { 
 	//Just unlink and remove
-	printf("\n%d", (*node)->data);
 	if (*prev != NULL) {
 		if (*node == (*prev)->left) {
 			(*prev)->left = NULL;
@@ -88,48 +87,50 @@ static void leafDelete(BSTree* node, BSTree* prev) {
 	free(*node);
 	*node = NULL;
 }
-static void doubleBranchDelete(BSTree* node, const BSTree tree) {
-	BSTree tmp = *node; //Noden som ska tas bort
-	BSTree rep = *node; //Noden som ska bytta ut noden som ska tas bort
-	int placeholder = 0;
-	if (tmp->data == rep->data) rep = rep->left;
+static void doubleBranchDelete(BSTree* tree, int data) {
+	
+	BSTree prev = NULL;
+	BSTree repl;
+	BSTree node = *tree;
 
-	while (1) {
-		if (rep->data > tmp->data) {
-			if (rep->left != NULL) rep = rep->left; //Om det går att gå ner åt vänster, gör det
-			else {
-				placeholder = rep->data;
-				if (rep->left != NULL) { //Om den har 1 barn kalla single()
-					BSTree prev = prevNode(tree, rep->data);
-					singleDelete(&rep, prev, 0);
-					return;
-				}
-				else { //Inger barn använd leaf()
-					BSTree prev = prevNode(tree, rep->data);
-					leafDelete(&rep, prev);
-				}
-				tmp->data = placeholder;
-				return;
-			}
+	while (node->data != data && node != NULL) {
+		prev = node;
+		if (data < node->data) {
+			node = node->left;
 		}
-		else if (rep->data < tmp->data) {
-			if (rep->right != NULL) rep = rep->right;//Om det går att gå ner åt höger, gör det
-			else {
-				placeholder = rep->data; //Assigna värdet från lövet till en placeholder
-				if (rep->left != NULL) {
-					BSTree prev = prevNode(tree, rep->data);
-					singleDelete(&rep, prev, 0);
-					return;
-				}
-				else {
-					BSTree prev = prevNode(tree, rep->data);
-					leafDelete(&rep, &prev);
-				}
-				tmp->data = placeholder; //Använd placeholder
-				return;
-			}
+		else
+			node = node->right;
+	}
+	BSTree tmp = node->right;
+	repl = tmp;
+	while (tmp != NULL) {
+		repl = tmp;
+		tmp = tmp->left;
+	}
+	int newData = repl->data;
+	BSTree prevnodeFunc = prevNode(*tree, repl->data);
+
+
+	if (repl->left == NULL && repl->right == NULL) {
+		leafDelete(&repl, &prevnodeFunc);
+	}
+	else {
+		singleDelete(&repl, &prevnodeFunc, tree);
+	}
+
+	if (prev != NULL) {
+
+		if (data == prev->left->data) {
+			node->data = newData;
+		}
+		else {
+			node->data = newData;
 		}
 	}
+	else {
+		node->data = newData;
+	}
+
 }
 
 static struct treeNode* createNode(int data)
@@ -283,7 +284,7 @@ void removeElement(BSTree* tree, int data)
 		}
 		leafDelete(&tmp, &prev); //Ta bort vanligt löv
 	}
-	else if (tmp->right != NULL && tmp->left != NULL) doubleBranchDelete(&tmp, *tree); //Ta bort gren(två barn)
+	else if (tmp->right != NULL && tmp->left != NULL) doubleBranchDelete(tree, data); //Ta bort gren(två barn)
 	else if (tmp->right != NULL || tmp->left != NULL) singleDelete(&tmp, &prev, tree); //Ta bort gren(ett barn)
 }
 
@@ -341,7 +342,7 @@ void balanceTree(BSTree* tree)
 
 	buildTreeSortedFromArray(tree, sortedArray, nrNodes-1); //Hjälpfunktion
 	free(sortedArray);//Frigör array
-	printf("\n%d", numberOfNodes(*tree));
+
 	assert(depth(*tree) == minDepth(*tree));//Kollar så att trädet är balanserat
 	assert(nrNodes == numberOfNodes(*tree));//Kollar så att ingen nod försvan
 }
