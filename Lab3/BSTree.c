@@ -36,10 +36,10 @@ static struct treeNode* prevNode(const BSTree tree, int data) { //Icke rekursiv 
 		}
 	}
 }
-static void singleDelete(BSTree* node, BSTree* prev, BSTree* tree) { //Dubbla grenar
+static void singleDelete(BSTree* node, BSTree* prev, BSTree* tree) { //Single branch
 	if (*node == NULL) 	return;
 
-	if (*node == *prev) {
+	if (*node == *prev) { //When node to remove is root
 		if ((*node)->left == NULL) {
 			*tree = (*prev)->right;
 			free(*node);
@@ -54,8 +54,7 @@ static void singleDelete(BSTree* node, BSTree* prev, BSTree* tree) { //Dubbla gr
 		}
 	}
 
-	if ((*node)->left == NULL) {
-		// the node has only a right child
+	if ((*node)->left == NULL) { // the node has only a right child
 		BSTree rightChild = (*node)->right;
 		free(*node);
 		if (rightChild->data > (*prev)->data) {
@@ -63,8 +62,7 @@ static void singleDelete(BSTree* node, BSTree* prev, BSTree* tree) { //Dubbla gr
 		}
 		else (*prev)->left = rightChild;
 	}
-	else if ((*node)->right == NULL) {
-		// the node has only a left child
+	else if ((*node)->right == NULL) { // the node has only a left child
 		BSTree leftChild = (*node)->left;
 		free(*node);
 		if (leftChild->data > (*prev)->data) {
@@ -74,7 +72,7 @@ static void singleDelete(BSTree* node, BSTree* prev, BSTree* tree) { //Dubbla gr
 	}
 	
 }
-static void leafDelete(BSTree* node, BSTree* prev) { 
+static void leafDelete(BSTree* node, BSTree* prev) { //Delete single node with no branches/children
 	//Just unlink and remove
 	if (*prev != NULL) {
 		if (*node == (*prev)->left) {
@@ -87,36 +85,34 @@ static void leafDelete(BSTree* node, BSTree* prev) {
 	free(*node);
 	*node = NULL;
 }
-static void doubleBranchDelete(BSTree* tree, int data) {
+static void doubleBranchDelete(BSTree* tree, int data) { 
 	
-	BSTree prev = NULL;
-	BSTree repl;
-	BSTree node = *tree;
+	BSTree repl; //Used for replacement node
+	BSTree node = *tree; 
 
-	while (node->data != data && node != NULL) {
-		prev = node;
-		if (data < node->data) {
+	while (node->data != data && node != NULL) { //Moves to node to delete
+		if (data < node->data) { //Compares size of data
 			node = node->left;
 		}
 		else
 			node = node->right;
 	}
-	BSTree tmp = node->right;
+	BSTree tmp = node->right; //Moves to right sub tree
 	repl = tmp;
-	while (tmp != NULL) {
+	while (tmp != NULL) { //smallest node in right sub tree
 		repl = tmp;
 		tmp = tmp->left;
 	}
 	int newData = repl->data;
-	BSTree prevnodeFunc = prevNode(*tree, repl->data);
+	BSTree prevnodeFunc = prevNode(*tree, repl->data); //Used in del functions
 
 	if (repl->left == NULL && repl->right == NULL) {
-		leafDelete(&repl, &prevnodeFunc);
+		leafDelete(&repl, &prevnodeFunc); //Called if replacment node has no children
 	}
 	else {
-		singleDelete(&repl, &prevnodeFunc, tree);
+		singleDelete(&repl, &prevnodeFunc, tree); //Called if replacment has one child
 	}
-	node->data = newData;
+	node->data = newData; //Assigns replacement data to node to delete. Frees replacment node in previous if() 
 }
 
 static struct treeNode* createNode(int data)
