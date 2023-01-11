@@ -1,2 +1,4 @@
-﻿  test_queue_stack_set.c
+﻿  queue.c
+C:\Users\macke\Documents\DVA244\Lab2\Lab2.2\queue.c(30,5): warning C4047: 'function': 'const List' differs in levels of indirection from 'Queue *'
+C:\Users\macke\Documents\DVA244\Lab2\Lab2.2\queue.c(30,5): warning C4024: 'isEmpty': different types for formal and actual parameter 1
   Lab2.2.vcxproj -> C:\Users\macke\Documents\DVA244\Lab2\Lab2.2\Lab2.2\x64\Debug\Lab2.2.exe

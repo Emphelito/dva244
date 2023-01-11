@@ -21,19 +21,21 @@ int queueIsEmpty(const Queue queue)
 void enqueue(Queue* queue, const Data data)
 {
     addLast(queue, data);
-  
+
+    assert(getLastElement(*queue) == data);
 }
 
 /* Precondition: kon Šr ej tom */
 void dequeue(Queue* queue)
 {
+    assert(isEmpty(queue) != 1);
     removeFirst(queue);
 }
 
 /* Precondition: kon Šr ej tom */
 Data peekQueue(const Queue queue)
 {
-    assert(queue != NULL);
+    assert(isEmpty(queue) != 1);
 
     return getFirstElement(queue);	// Ersatt med ratt returvarde
 }

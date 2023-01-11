@@ -16,18 +16,23 @@ int stackIsEmpty(const Stack stack)
 void push(Stack* stack, const Data data)
 {
     addFirst(stack, data);
+    assert(getFirstElement(*stack) == data);
 }
 
 /* Precondition: stacken far inte vara tom */
 void pop(Stack* stack)
 {
-    removeFirst(stack);
+    if (stackIsEmpty(stack) != 1) {
+        removeFirst(stack);
+    }
 }
 
 /* Precondition: stacken far inte vara tom */
 Data peekStack(const Stack stack)
 {
-    return getFirstElement(stack);
+    if (stackIsEmpty(stack) != 1) {
+        return getFirstElement(stack);
+    }
 }
 
 /* Anvands for testning och felsokning

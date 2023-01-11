@@ -9,7 +9,7 @@ static struct node* createListNode(const Data data)
 {
     List tmp; //Creates node
     tmp = (List*)malloc(sizeof(List) * data); 
-    assert(tmp != NULL); //Checks that malloc worked
+    if (tmp == NULL) return NULL;
 
     tmp->data = data; //Assigns data to node
     tmp->next = NULL; //Assigns Next node(NULL) to the node
@@ -32,6 +32,7 @@ void addFirst(List *list, const Data data)
 {
     List tmp; //Creates node
     tmp = createListNode(data); //function to allocate mem to node and initiate it
+    if (tmp == NULL) return;
 
     tmp->next = *list; //this is so we can assign a new node to tmp
     *list = tmp; //the node we created is now the head
@@ -45,6 +46,7 @@ void addLast(List *list, const Data data)
 
     if (tmp == NULL) { //Checks if list is empty
         tmp = (List*)malloc(sizeof(List) * data);
+        if (tmp == NULL) return;
 
         tmp->data = data;
         tmp->next = NULL;
@@ -57,7 +59,7 @@ void addLast(List *list, const Data data)
         }
 
         tmp->next = (List*)malloc(sizeof(List) * data); 
-        assert(tmp->next != NULL); //Checks if malloc worked
+        if (tmp == NULL) return;
 
         tmp->next->data = data;
         tmp->next->next = NULL;
