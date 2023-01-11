@@ -26,6 +26,7 @@ int sum(int input) {
 	printf("Sum (%d) anropas\n", input);
 
 	if (input != 1 && input > 0)total = sum(input - 1);
+
 	total += input;
 
 	printf("Sum (%d) retuneras \n", total);
