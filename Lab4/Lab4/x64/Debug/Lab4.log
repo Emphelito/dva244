@@ -1,0 +1,12 @@
+﻿  HashTable.c
+C:\Users\macke\Documents\DVA244\Lab4\HashTable.c(22,44): warning C4047: '!=': 'Key' differs in levels of indirection from 'void *'
+C:\Users\macke\Documents\DVA244\Lab4\HashTable.c(39,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\macke\Documents\DVA244\Lab4\HashTable.c(40,35): warning C4047: '=': 'Key' differs in levels of indirection from 'void *'
+C:\Users\macke\Documents\DVA244\Lab4\HashTable.c(77,44): warning C4047: '!=': 'Key' differs in levels of indirection from 'void *'
+C:\Users\macke\Documents\DVA244\Lab4\HashTable.c(79,44): warning C4047: '=': 'Key' differs in levels of indirection from 'void *'
+C:\Users\macke\Documents\DVA244\Lab4\HashTable.c(83,48): warning C4047: '!=': 'Key' differs in levels of indirection from 'void *'
+C:\Users\macke\Documents\DVA244\Lab4\HashTable.c(86,44): warning C4047: '=': 'Key' differs in levels of indirection from 'void *'
+C:\Users\macke\Documents\DVA244\Lab4\HashTable.c(111,44): warning C4047: '!=': 'Key' differs in levels of indirection from 'void *'
+C:\Users\macke\Documents\DVA244\Lab4\HashTable.c(140,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\macke\Documents\DVA244\Lab4\HashTable.c(141,41): warning C4047: '!=': 'Key' differs in levels of indirection from 'void *'
+  Lab4.vcxproj -> C:\Users\macke\Documents\DVA244\Lab4\Lab4\x64\Debug\Lab4.exe
