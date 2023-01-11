@@ -110,27 +110,13 @@ static void doubleBranchDelete(BSTree* tree, int data) {
 	int newData = repl->data;
 	BSTree prevnodeFunc = prevNode(*tree, repl->data);
 
-
 	if (repl->left == NULL && repl->right == NULL) {
 		leafDelete(&repl, &prevnodeFunc);
 	}
 	else {
 		singleDelete(&repl, &prevnodeFunc, tree);
 	}
-
-	if (prev != NULL) {
-
-		if (data == prev->left->data) {
-			node->data = newData;
-		}
-		else {
-			node->data = newData;
-		}
-	}
-	else {
-		node->data = newData;
-	}
-
+	node->data = newData;
 }
 
 static struct treeNode* createNode(int data)
