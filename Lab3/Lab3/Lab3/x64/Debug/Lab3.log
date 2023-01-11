@@ -1,18 +1,16 @@
 ﻿  BSTree.c
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(13,6): warning C4101: 'last': unreferenced local variable
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(13,12): warning C4101: 'currentLast': unreferenced local variable
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(117,23): warning C4047: 'function': 'BSTree *' differs in levels of indirection from 'BSTree'
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(117,19): warning C4024: 'single': different types for formal and actual parameter 2
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(122,21): warning C4047: 'function': 'BSTree *' differs in levels of indirection from 'BSTree'
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(122,17): warning C4024: 'leaf': different types for formal and actual parameter 2
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(134,23): warning C4047: 'function': 'BSTree *' differs in levels of indirection from 'BSTree'
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(134,19): warning C4024: 'single': different types for formal and actual parameter 2
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(153,28): warning C4047: '=': 'BSTree' differs in levels of indirection from 'BSTree *'
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(190,27): warning C4033: 'writeSortedToArray' must return a value
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(435,18): warning C4047: 'function': 'const BSTree' differs in levels of indirection from 'BSTree *'
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(435,14): warning C4024: 'isEmpty': different types for formal and actual parameter 1
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(435,33): warning C4098: 'freeTree': 'void' function returning a value
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(363): warning C4715: 'numberOfNodes': not all control paths return a value
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(202): warning C4715: 'writeSortedToArray': not all control paths return a value
-C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(177): warning C4715: 'sortArray': not all control paths return a value
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(104,29): warning C4047: 'function': 'BSTree *' differs in levels of indirection from 'BSTree'
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(104,25): warning C4024: 'singleDelete': different types for formal and actual parameter 2
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(109,27): warning C4047: 'function': 'BSTree *' differs in levels of indirection from 'BSTree'
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(109,23): warning C4024: 'leafDelete': different types for formal and actual parameter 2
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(121,29): warning C4047: 'function': 'BSTree *' differs in levels of indirection from 'BSTree'
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(121,25): warning C4024: 'singleDelete': different types for formal and actual parameter 2
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(175,27): warning C4033: 'writeSortedToArray' must return a value
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(326,9): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(351,18): warning C4047: 'function': 'const BSTree' differs in levels of indirection from 'BSTree *'
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(351,14): warning C4024: 'isEmpty': different types for formal and actual parameter 1
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(351,33): warning C4098: 'freeTree': 'void' function returning a value
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(21): warning C4715: 'findNode': not all control paths return a value
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(180): warning C4715: 'writeSortedToArray': not all control paths return a value
+C:\Users\macke\Documents\DVA244\Lab3\BSTree.c(38): warning C4715: 'prevNode': not all control paths return a value
   Lab3.vcxproj -> C:\Users\macke\Documents\DVA244\Lab3\Lab3\x64\Debug\Lab3.exe

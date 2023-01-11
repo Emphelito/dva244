@@ -19,7 +19,7 @@ static struct treeNode* findNode(const BSTree tree, int data) { //Tidig funktion
 		else if (data < tmp->data) tmp = tmp->left;
 	}
 }
-static struct treeNode* prevNode(const BSTree tree, int data) { //Icke rekursiv som hittar värdet på föräldern till noden wdd
+static struct treeNode* prevNode(const BSTree tree, int data) { //Icke rekursiv som hittar värdet på föräldern till noden
 	BSTree tmp = tree;
 	BSTree prev = tree;
 	while (tmp != NULL) {
@@ -36,57 +36,66 @@ static struct treeNode* prevNode(const BSTree tree, int data) { //Icke rekursiv 
 		}
 	}
 }
-static void singleDelete(BSTree* node, BSTree* prev, BSTree* tree) { //Dubbla grenar
-	if (*node == NULL) 	return;
-
-	if (*node == *prev) {
-		if ((*node)->left == NULL) {
-			*tree = (*prev)->right;
-			free(*node);
-			*node = NULL;
-			return;
+static void singleDelete(BSTree* node, BSTree* previous) { //Dubbla grenar
+	BSTree tmp = *node;
+	BSTree prev = *previous;
+	if (prev == tmp) { //När rotten ska tas bort men det finns 1 barn
+		if (tmp->left != NULL) {
+			tmp = tmp->left;
+			prev->data = tmp->data;
+			free(tmp);
+			prev->left = NULL;
 		}
 		else {
-			*tree = (*prev)->left;
-			free(*node);
-			*node = NULL;
-			return;
+			tmp = tmp->right;
+			prev->data = tmp->data;
+			free(tmp);
+			prev->right = NULL;
+		}
+		return;
+	}
+	if (tmp->left != NULL) {
+		if (prev->left != NULL && prev->left->data == tmp->data) {
+			prev->left = tmp->left;
+			free(tmp);
+			tmp = NULL;
+		}
+		else {
+			prev->right = tmp->left;
+			free(tmp);
+			tmp = NULL;
 		}
 	}
-
-	if ((*node)->left == NULL) {
-		// the node has only a right child
-		BSTree rightChild = (*node)->right;
-		free(*node);
-		if (rightChild->data > (*prev)->data) {
-			(*prev)->right = rightChild;
+	else {
+		if (prev->left->data == tmp->data) {
+			prev->left = tmp->right;
+			free(tmp);
+			tmp = NULL;
 		}
-		else (*prev)->left = rightChild;
-	}
-	else if ((*node)->right == NULL) {
-		// the node has only a left child
-		BSTree leftChild = (*node)->left;
-		free(*node);
-		if (leftChild->data > (*prev)->data) {
-			(*prev)->right = leftChild;
+		else {
+			prev->right = tmp->right;
+			free(tmp);
+			tmp = NULL;
 		}
-		else (*prev)->left = leftChild;
 	}
-	
 }
-static void leafDelete(BSTree* node, BSTree* prev) { 
+static void leafDelete(BSTree* node, BSTree* previous) { 
 	//Just unlink and remove
-	printf("\n%d", (*node)->data);
-	if (*prev != NULL) {
-		if (*node == (*prev)->left) {
-			(*prev)->left = NULL;
-		}
-		else {
-			(*prev)->right = NULL;
-		}
+	BSTree tmp = *node;
+	BSTree prev = *previous;
+	if (prev->left == tmp) {//Kollar om löver är på vänster eller höger sida av sin förälder
+		free(tmp);
+		prev->left = NULL;
 	}
-	free(*node);
-	*node = NULL;
+	else if(prev->right == tmp) {
+		free(tmp);
+		prev->right = NULL;
+	}
+	else {
+		free(prev);
+		tmp = NULL;
+	}
+
 }
 static void doubleBranchDelete(BSTree* node, const BSTree tree) {
 	BSTree tmp = *node; //Noden som ska tas bort
@@ -101,7 +110,7 @@ static void doubleBranchDelete(BSTree* node, const BSTree tree) {
 				placeholder = rep->data;
 				if (rep->left != NULL) { //Om den har 1 barn kalla single()
 					BSTree prev = prevNode(tree, rep->data);
-					singleDelete(&rep, prev, 0);
+					singleDelete(&rep, prev);
 					return;
 				}
 				else { //Inger barn använd leaf()
@@ -118,7 +127,7 @@ static void doubleBranchDelete(BSTree* node, const BSTree tree) {
 				placeholder = rep->data; //Assigna värdet från lövet till en placeholder
 				if (rep->left != NULL) {
 					BSTree prev = prevNode(tree, rep->data);
-					singleDelete(&rep, prev, 0);
+					singleDelete(&rep, prev);
 					return;
 				}
 				else {
@@ -136,7 +145,7 @@ static struct treeNode* createNode(int data)
 {
 	BSTree tmp = NULL;
 
-	tmp = malloc(sizeof(struct treeNode));
+	tmp = (BSTree*)malloc(200);
 	assert(tmp != NULL);
 
 	tmp->data = data;
@@ -184,7 +193,7 @@ static void buildTreeSortedFromArray(BSTree* tree, const int arr[], int size)
 {
 	if (size < 0) return;
 
-	int mid = (size) / 2; //Delar med 2 för att komma till mitten
+	int mid = (0 + size) / 2; //Delar med 2 för att komma till mitten
 
 	insertSorted(tree, arr[mid]);//Använder insertSorted() för att lägga till noder
 
@@ -213,17 +222,35 @@ int isEmpty(const BSTree tree)
  Post-condition: data finns i tradet*/
 void insertSorted(BSTree* tree, int data)
 {
+	BSTree tmp = *tree;
+	if (data < 0) return;
 	if (isEmpty(*tree) == 1) {
 		*tree = createNode(data);
-		assert(find(*tree, data) == 1);
 		return;
 	}
-	if (data <= (*tree)->data) {
-		insertSorted(&(*tree)->left, data);
-	}
-	else {
-		insertSorted(&(*tree)->right, data);
-	}
+	do {
+		if (data < tmp->data) { //Kollar om värdet är mindre än tmp
+			if (tmp->left == NULL) { //Ifall tmp är tom skapa en nod
+				tmp->left = createNode(data);
+				return;
+			}
+			else {
+				tmp = tmp->left;
+			}
+		}
+		if (data > tmp->data) {
+			if (tmp->right == NULL) {
+				tmp->right = createNode(data);
+				return;
+			}
+			else {
+				tmp = tmp->right;
+			}
+		}
+		if (data == tmp->data) return;//Dubblet
+
+	} while (data != tmp->data);//Do while för att jag tänkte addera dubbleter till trädet från början
+
 	assert(find(*tree, data) == 1);
 }
 
@@ -284,14 +311,25 @@ void removeElement(BSTree* tree, int data)
 		leafDelete(&tmp, &prev); //Ta bort vanligt löv
 	}
 	else if (tmp->right != NULL && tmp->left != NULL) doubleBranchDelete(&tmp, *tree); //Ta bort gren(två barn)
-	else if (tmp->right != NULL || tmp->left != NULL) singleDelete(&tmp, &prev, tree); //Ta bort gren(ett barn)
+	else if (tmp->right != NULL || tmp->left != NULL) singleDelete(&tmp, &prev); //Ta bort gren(ett barn)
 }
 
 /* Returnerar hur manga noder som totalt finns i tradet */
 int numberOfNodes(const BSTree tree)
 {
 	if (isEmpty(tree) == 1)return 0;
-	return numberOfNodes(tree->left) + numberOfNodes(tree->right) + 1;
+	BSTree tmp = tree;
+	int amount = 1; //För att det alltid ska läggas till 1 om noden inte är tom
+	
+	if (tmp == NULL){
+		return 0;
+	}
+	else if(tmp != NULL) {
+		amount += numberOfNodes(tmp->right); //Går rekrusivt igenom alla noder som inte är tomma och retunerar 1.
+		amount += numberOfNodes(tmp->left);
+
+		return amount;
+	}
 	
 }
 
@@ -339,9 +377,9 @@ void balanceTree(BSTree* tree)
 
 	freeTree(tree);//Tömmer träd
 
-	buildTreeSortedFromArray(tree, sortedArray, nrNodes-1); //Hjälpfunktion
+	buildTreeSortedFromArray(tree, sortedArray, nrNodes); //Hjälpfunktion
 	free(sortedArray);//Frigör array
-	printf("\n%d", numberOfNodes(*tree));
+
 	assert(depth(*tree) == minDepth(*tree));//Kollar så att trädet är balanserat
 	assert(nrNodes == numberOfNodes(*tree));//Kollar så att ingen nod försvan
 }
